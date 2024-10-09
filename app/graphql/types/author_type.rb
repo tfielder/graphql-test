@@ -14,4 +14,6 @@ class Types::AuthorType < Types::BaseObject
     def years_old
         "#{object.first_name} is #{Time.now.year - object.yob}"
     end
+
+    field :coordinates, Types::CoordinatesType, null: false
 end
