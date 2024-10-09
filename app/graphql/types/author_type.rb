@@ -9,6 +9,7 @@ class Types::AuthorType < Types::BaseObject
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     
     field :full_name, String, null: true
+    field :years_old, String, null: true
 
     def years_old
         "#{object.first_name} is #{Time.now.year - object.yob}"
