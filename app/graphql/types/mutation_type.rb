@@ -15,5 +15,13 @@ module Types
   
     #alternative way to create a mutation
     field :create_author, Types::AuthorType, mutation: Mutations::CreateAuthor #indicates external file defining
+    field :update_author, Boolean, null: false, description: "Update an author" do
+      argument :author, Types::AuthorInputType, required: true
+    end
+
+    def update_author(author:)
+      existing = Author.where(id: author[:id]).first
+      existing&.update author.to_h
+    end
   end
 end
