@@ -20,7 +20,8 @@ class GraphqlController < ApplicationController
       # current_user: current_user,
       time: Time.now,
       # add current_user with authorization
-      current_user: session&.user
+      current_user: session&.user,
+      session_id: session&.id
     }
     result = GraphqlTestApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
