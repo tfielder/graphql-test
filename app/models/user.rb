@@ -4,4 +4,8 @@ class User < ApplicationRecord
 
     has_many :sessions
 
+
+    def self.visible?(context)
+        !!context[:current_user]
+    end
 end
