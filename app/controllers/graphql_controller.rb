@@ -10,10 +10,17 @@ class GraphqlController < ApplicationController
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
+
+    #add for authorization
+    session = Session.where(key: request.headers["Authorization"]).first
+    Rails.logger.info "Logged in as #{session&.user&.email}"
+
     context = {
       # Query context goes here, for example:
       # current_user: current_user,
-      time: Time.now
+      time: Time.now,
+      # add current_user with authorization
+      current_user: session&.user
     }
     result = GraphqlTestApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
